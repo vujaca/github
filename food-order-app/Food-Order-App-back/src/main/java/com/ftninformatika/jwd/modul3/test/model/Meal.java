@@ -28,6 +28,9 @@ public class Meal {
 	@Column
 	private int amount;
 	
+	@Column(name = "image")
+	private String imageUrl;
+	
 	@ManyToOne
 	private Restaurant restaurant;
 
@@ -75,6 +78,14 @@ public class Meal {
 		return id;
 	}
 
+	public String getImageUrl() {
+		return imageUrl;
+	}
+
+	public void setImageUrl(String imageUrl) {
+		this.imageUrl = imageUrl;
+	}
+
 	public Meal(Long id, String name, String description, double price, int amount, Restaurant restaurant) {
 		super();
 		this.id = id;
@@ -109,7 +120,9 @@ public class Meal {
 	@Override
 	public String toString() {
 		return "Meal [id=" + id + ", name=" + name + ", description=" + description + ", price=" + price + ", amount="
-				+ amount + "]";
+				+ amount + ", imageUrl=" + imageUrl + ", restaurant=" + restaurant + "]";
 	}
+
+	
 
 }

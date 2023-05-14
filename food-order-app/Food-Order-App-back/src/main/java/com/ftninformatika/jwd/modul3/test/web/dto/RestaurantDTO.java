@@ -18,6 +18,8 @@ public class RestaurantDTO {
 	private String aboutUs;
 	
 	private String location;
+	
+	private String imageUrl;
 
 	public RestaurantDTO() {
 		super();
@@ -70,4 +72,13 @@ public class RestaurantDTO {
 	public void setLocation(String location) {
 		this.location = location;
 	}
+
+	public String getImageUrl() {
+		return imageUrl;
+	}
+
+	public void setImageUrl(String imageUrl) {
+		this.imageUrl = imageUrl;
+	}
+	
 }

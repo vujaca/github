@@ -1,0 +1,47 @@
+.meal {
+  max-width: 50rem;
+  margin: 2rem auto;
+  text-align: center;
+  color: black;
+}
+
+.meal img {
+  width: 30rem;
+  border-radius: 4px;
+}
+
+.meal a {
+  color: purple;
+}
+
+.meal a:hover {
+  color: #de0404;
+}
+
+.actions {
+  color: black;
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  align-items: center;
+  padding: 0;
+}
+
+.actions a,
+.actions button {
+  text-align: center;
+  padding: 0.25rem 1rem;
+  text-decoration: none;
+  font: inherit;
+  cursor: pointer;
+}
+
+.actions button {
+  background-color: #8a2b06;
+  border: none;
+  color: var(--color-primary-800);
+}
+
+.actions button:hover {
+  background-color: darkred;
+}

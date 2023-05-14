@@ -1,0 +1,58 @@
+.restaurant {
+    max-width: 50rem;
+    text-align: center;
+    display: block;
+    margin: 2rem auto;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #ccc;
+  }
+
+  .restaurant img {
+    width: 30rem;
+    border-radius: 4px;
+  }
+
+  .restaurant a{
+    color: purple;
+    text-decoration: none;
+  }
+
+  .restaurant a:hover,
+  .restaurant a.active {
+    color: #de0404;
+  }
+  
+  .restaurant h3 {
+    margin: 0 0 0.25rem 0;
+  }
+  
+  .description {
+    font-style: italic;
+  }
+  
+  .contact {
+    margin-top: 0.25rem;
+    font-weight: bold;
+    color: #ad5502;
+    font-size: 1 rem;
+  }
+
+
+.actions a,
+.actions button {
+  text-align: center;
+  padding: 0.25rem 1rem;
+  text-decoration: none;
+  font: inherit;
+  cursor: pointer;
+}
+
+.actions button {
+  background-color: #8a2b06;
+  border: none;
+  color: var(--color-primary-800);
+}
+
+.actions button:hover {
+  background-color: darkred;
+}

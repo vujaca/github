@@ -29,6 +29,7 @@ public class RestaurantDtoToRestaurant implements Converter<RestaurantDTO, Resta
 			restaurant.setFoundingYear(dto.getFoundingYear());
 			restaurant.setLocation(dto.getLocation());
 			restaurant.setName(dto.getName());
+			restaurant.setImageUrl(dto.getImageUrl());
 		}
 		return restaurant;
 	}

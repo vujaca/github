@@ -26,6 +26,7 @@ public class MealToMealDTO implements Converter<Meal, MealDTO> {
 		dto.setName(meal.getName());
 		dto.setPrice(meal.getPrice());
 		dto.setRestaurant(toRestaurantDTO.convert(meal.getRestaurant()));
+		dto.setImageUrl(meal.getImageUrl());
 		return dto;
 	}
 	

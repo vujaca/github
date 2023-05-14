@@ -5,6 +5,16 @@
     padding-bottom: 1rem;
     border-bottom: 1px solid #ccc;
   }
+
+  .meal a {
+    color: black;
+    text-decoration: none;
+  }
+
+  .meal a:hover,
+  .meal a.active {
+    color: #de0404;
+  }
   
   .meal h3 {
     margin: 0 0 0.25rem 0;
@@ -19,4 +29,9 @@
     font-weight: bold;
     color: #ad5502;
     font-size: 1.25rem;
+  }
+
+  .list {
+    display: flex;
+    gap: 2rem;
   }

@@ -22,6 +22,8 @@ public class MealDTO {
 	private int amount;
 	
 	private RestaurantDTO restaurant;
+	
+	private String imageUrl;
 
 	public MealDTO() {
 		super();
@@ -74,5 +76,15 @@ public class MealDTO {
 	public void setRestaurant(RestaurantDTO restaurant) {
 		this.restaurant = restaurant;
 	}
+
+	public String getImageUrl() {
+		return imageUrl;
+	}
+
+	public void setImageUrl(String imageUrl) {
+		this.imageUrl = imageUrl;
+	}
+	
+	
 	
 }

@@ -48,6 +48,9 @@ public class Restaurant {
 	
 	@OneToMany(mappedBy = "restaurant", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	private Set<Meal>meals = new HashSet<Meal>();
+	
+	@Column(name = "image")
+	private String imageUrl;
 
 	public String getName() {
 		return name;
@@ -117,9 +120,16 @@ public class Restaurant {
 		this.meals = meals;
 	}
 	
+	public String getImageUrl() {
+		return imageUrl;
+	}
+
+	public void setImageUrl(String imageUrl) {
+		this.imageUrl = imageUrl;
+	}
 
 	public Restaurant(Long id, String name, String contact, int foundingYear, String aboutUs, String location,
-			Set<Meal> meals) {
+			Set<Meal> meals, String imageUrl) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -128,6 +138,7 @@ public class Restaurant {
 		this.aboutUs = aboutUs;
 		this.location = location;
 		this.meals = meals;
+		this.imageUrl = imageUrl;
 	}
 
 	public Restaurant() {
