@@ -30,7 +30,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
   @Override
   @Transactional
   public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-    User korisnik = korisnikService.findbyKorisnickoIme(username).orElse(null);
+    User korisnik = korisnikService.findbyUsername(username).orElse(null);
 
     if (korisnik == null) {
       throw new UsernameNotFoundException(String.format("No user found with username '%s'.", username));
@@ -43,8 +43,8 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         grantedAuthorities.add(new SimpleGrantedAuthority(role));
 
         return new org.springframework.security.core.userdetails.User(
-                korisnik.getKorisnickoIme().trim(),
-                korisnik.getLozinka().trim(),
+                korisnik.getUsername().trim(),
+                korisnik.getPassword().trim(),
                 grantedAuthorities);
     }
   }

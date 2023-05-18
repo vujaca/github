@@ -17,23 +17,23 @@ public class UserDtoToUser implements Converter<UserDTO, User> {
     private UserService korisnikService;
 
     @Override
-    public User convert(UserDTO korisnikDTO) {
+    public User convert(UserDTO dto) {
         User entity = null;
 
-        if(korisnikDTO.getId() == null) {
+        if(dto.getId() == null) {
             entity = new User();
         }else {
-            Optional<User> korisnikOptional = korisnikService.findOne(korisnikDTO.getId());
+            Optional<User> korisnikOptional = korisnikService.findOne(dto.getId());
             if(korisnikOptional.isPresent()){
                 entity = korisnikOptional.get();
             }
         }
 
         if(entity != null) {
-            entity.setKorisnickoIme(korisnikDTO.getKorisnickoIme());
-            entity.seteMail(korisnikDTO.geteMail());
-            entity.setIme(korisnikDTO.getIme());
-            entity.setPrezime(korisnikDTO.getPrezime());
+            entity.setUsername(dto.getUsername());
+            entity.seteMail(dto.geteMail());
+            entity.setName(dto.getName());
+            entity.setSurname(dto.getSurname());
         }
 
         return entity;

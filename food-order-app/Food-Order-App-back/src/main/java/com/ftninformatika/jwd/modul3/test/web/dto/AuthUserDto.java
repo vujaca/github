@@ -10,7 +10,7 @@ public class AuthUserDto {
     @NotBlank
     private String password;
 
-    public AuthUserDto() {}
+	public AuthUserDto() {}
 
     public String getUsername() { return username; }
 
@@ -19,4 +19,6 @@ public class AuthUserDto {
     public String getPassword() { return password; }
 
     public void setPassword(String password) { this.password = password; }
+    
+    
 }

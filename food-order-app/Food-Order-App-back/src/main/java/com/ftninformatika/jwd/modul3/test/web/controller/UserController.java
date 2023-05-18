@@ -15,6 +15,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.http.MediaType;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -25,6 +26,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.HttpServerErrorException.InternalServerError;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -37,7 +39,11 @@ import org.springframework.http.ResponseEntity;
 
 import javax.persistence.EntityNotFoundException;
 import javax.validation.Valid;
+
+import java.nio.file.AccessDeniedException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @RestController
@@ -67,18 +73,20 @@ public class UserController {
 
     @PreAuthorize("permitAll()")
     @PostMapping
-    public ResponseEntity<UserDTO> create(@RequestBody @Validated KorisnikRegistracijaDTO dto){
+    public ResponseEntity create(@RequestBody @Validated KorisnikRegistracijaDTO dto){
 
-        if(dto.getId() != null || !dto.getLozinka().equals(dto.getPonovljenaLozinka())) {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        if(dto.getId() != null || !dto.getPassword().equals(dto.getRepeatedPassword())) {
+        	 Map<String, String> errors = new HashMap<>();
+             errors.put("message", "Password and repeated password must be same!");
+             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errors);
         }
 
         // KorisnikRegistracijaDTO nasleđuje KorisnikDTO, pa možemo koristiti konverter za njega
         // ostaje da dodatno konvertujemo polje kojeg u njemu nema - password
         User korisnik = toKorisnik.convert(dto);
-        // dodatak za zadatak 1
-        String encodedPassword = passwordEncoder.encode(dto.getLozinka());
-        korisnik.setLozinka(encodedPassword);
+
+        String encodedPassword = passwordEncoder.encode(dto.getPassword());
+        korisnik.setPassword(encodedPassword);
 
 
 
@@ -145,17 +153,38 @@ public class UserController {
     @PreAuthorize("permitAll()")
     @RequestMapping(path = "/auth", method = RequestMethod.POST)
     public ResponseEntity authenticateUser(@RequestBody AuthUserDto dto) {
-        // Perform the authentication
-        UsernamePasswordAuthenticationToken authenticationToken =
-                new UsernamePasswordAuthenticationToken(dto.getUsername(), dto.getPassword());
-        Authentication authentication = authenticationManager.authenticate(authenticationToken);
-        SecurityContextHolder.getContext().setAuthentication(authentication);
         try {
+            // Perform the authentication
+            UsernamePasswordAuthenticationToken authenticationToken =
+                new UsernamePasswordAuthenticationToken(dto.getUsername(), dto.getPassword());
+            Authentication authentication = authenticationManager.authenticate(authenticationToken);
+            SecurityContextHolder.getContext().setAuthentication(authentication);
+            
             // Reload user details so we can generate token
             UserDetails userDetails = userDetailsService.loadUserByUsername(dto.getUsername());
+            
             return ResponseEntity.ok(tokenUtils.generateToken(userDetails));
         } catch (UsernameNotFoundException e) {
             return ResponseEntity.notFound().build();
+        } catch (BadCredentialsException e) {
+            //(422 or 401 status)
+            Map<String, String> errors = new HashMap<>();
+            errors.put("message", "Invalid credentials");
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(errors);
+        } catch (org.springframework.security.access.AccessDeniedException e) {
+            //(403 status)
+            Map<String, String> errors = new HashMap<>();
+            errors.put("message", "Wrong username or password");
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(errors);
+        }	catch (InternalServerError e) {
+        	 Map<String, String> errors = new HashMap<>();
+             errors.put("message", "Internal server error");
+             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errors);
+        }
+        catch (Exception e) {
+            Map<String, String> errors = new HashMap<>();
+            errors.put("message", "Internal server error");
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errors);
         }
     }
 }

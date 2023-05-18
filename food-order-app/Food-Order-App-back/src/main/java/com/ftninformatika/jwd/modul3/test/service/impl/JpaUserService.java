@@ -53,8 +53,8 @@ public class JpaUserService implements UserService {
     }
 
     @Override
-    public Optional<User> findbyKorisnickoIme(String korisnickoIme) {
-        return korisnikRepository.findFirstByKorisnickoIme(korisnickoIme);
+    public Optional<User> findbyUsername(String username) {
+        return korisnikRepository.findFirstByUsername(username);
     }
 
     @Override
@@ -67,8 +67,8 @@ public class JpaUserService implements UserService {
 
         User korisnik = rezultat.get();
 
-        boolean passwordsMatch = BCrypt.checkpw(korisnikPromenaLozinkeDto.getStaraLozinka(), korisnik.getLozinka());
-        if(!korisnik.getKorisnickoIme().equals(korisnikPromenaLozinkeDto.getKorisnickoIme()) || !passwordsMatch){
+        boolean passwordsMatch = BCrypt.checkpw(korisnikPromenaLozinkeDto.getStaraLozinka(), korisnik.getPassword());
+        if(!korisnik.getUsername().equals(korisnikPromenaLozinkeDto.getKorisnickoIme()) || !passwordsMatch){
             return false;
         }
 
@@ -78,7 +78,7 @@ public class JpaUserService implements UserService {
             password = passwordEncoder.encode(korisnikPromenaLozinkeDto.getLozinka());
         }
 
-        korisnik.setLozinka(password);
+        korisnik.setPassword(password);
 
         korisnikRepository.save(korisnik);
 

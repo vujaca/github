@@ -4,7 +4,7 @@ import Meal from "../components/Meals/MealItem/Meal";
 
 const MealDetailPage = () => {
   const data = useRouteLoaderData('meal-detail')
-  console.log(data.meal + ' success');
+  // console.log(data.meal + ' success');
   return (
     <>
       <Suspense

@@ -1,4 +1,4 @@
-import { useReducer } from "react";
+import { useMemo, useReducer } from "react";
 
 import CartContext from "./cart-context";
 
@@ -80,13 +80,16 @@ const CartProvider = (props) => {
     dispatchCartAction({type: 'CLEAR'})
   }
 
-  const cartContext = {
-    items: cartState.items,
-    totalAmount: cartState.totalAmount,
-    addItem: addItemCartHandler,
-    removeItem: removeItemFromCartHamdler,
-    clearCart: clearCartHandler
-  };
+  const cartContext = useMemo(() => {
+    return {
+      items: cartState.items,
+      totalAmount: cartState.totalAmount,
+      addItem: addItemCartHandler,
+      removeItem: removeItemFromCartHamdler,
+      clearCart: clearCartHandler
+    }
+    
+}, [cartState.items, cartState.totalAmount]) 
 
   return (
     <CartContext.Provider value={cartContext}>

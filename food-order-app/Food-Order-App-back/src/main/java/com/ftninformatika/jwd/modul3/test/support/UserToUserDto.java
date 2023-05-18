@@ -13,23 +13,23 @@ import java.util.List;
 public class UserToUserDto implements Converter<User, UserDTO>{
 
     @Override
-    public UserDTO convert(User korisnik) {
-        UserDTO korisnikDTO = new UserDTO();
+    public UserDTO convert(User user) {
+        UserDTO dto = new UserDTO();
 
-        korisnikDTO.setId(korisnik.getId());
-        korisnikDTO.seteMail(korisnik.geteMail());
-        korisnikDTO.setIme(korisnik.getIme());
-        korisnikDTO.setPrezime(korisnik.getPrezime());
-        korisnikDTO.setKorisnickoIme(korisnik.getKorisnickoIme());
+        dto.setId(user.getId());
+        dto.seteMail(user.geteMail());
+        dto.setName(user.getName());
+        dto.setSurname(user.getSurname());
+        dto.setUsername(user.getUsername());
 
-        return korisnikDTO;
+        return dto;
     }
 
-    public List<UserDTO> convert(List<User> korisnici){
+    public List<UserDTO> convert(List<User> users){
         List<UserDTO> korisnikDTOS = new ArrayList<>();
 
-        for(User k : korisnici) {
-            UserDTO dto = convert(k);
+        for(User u : users) {
+            UserDTO dto = convert(u);
             korisnikDTOS.add(dto);
         }
 

@@ -20,7 +20,7 @@ public interface UserService {
 
     void delete(Long id);
 
-    Optional<User> findbyKorisnickoIme(String korisnickoIme);
+    Optional<User> findbyUsername(String username);
 
     boolean changePassword(Long id, KorisnikPromenaLozinkeDto korisnikPromenaLozinkeDto);
 }

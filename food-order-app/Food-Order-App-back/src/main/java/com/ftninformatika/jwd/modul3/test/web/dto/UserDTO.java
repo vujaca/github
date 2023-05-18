@@ -9,21 +9,21 @@ import javax.validation.constraints.Size;
 
 public class UserDTO {
 
-    @Positive(message = "Id mora biti pozitivan broj.")
+    @Positive(message = "Id must be positive.")
     private Long id;
 
-    //@NotBlank
-    private String korisnickoIme;
+    @NotBlank
+    private String username;
 
-    //@NotEmpty
-    //@Email
+    @NotEmpty
+    @Email
     private String eMail;
 
-    //@Size(min=3, max=50)
-    private String ime;
+    @Size(min=2, max=50)
+    private String name;
 
-    //@Size(min=3, max=50)
-    private String prezime;
+    @Size(min=2, max=50)
+    private String surname;
 
 
     public Long getId() {
@@ -34,35 +34,36 @@ public class UserDTO {
         this.id = id;
     }
 
-    public String getKorisnickoIme() {
-        return korisnickoIme;
-    }
+	public String getUsername() {
+		return username;
+	}
 
-    public void setKorisnickoIme(String korisnickoIme) {
-        this.korisnickoIme = korisnickoIme;
-    }
+	public void setUsername(String username) {
+		this.username = username;
+	}
 
-    public String geteMail() {
-        return eMail;
-    }
+	public String geteMail() {
+		return eMail;
+	}
 
-    public void seteMail(String eMail) {
-        this.eMail = eMail;
-    }
+	public void seteMail(String eMail) {
+		this.eMail = eMail;
+	}
 
-    public String getIme() {
-        return ime;
-    }
+	public String getName() {
+		return name;
+	}
 
-    public void setIme(String ime) {
-        this.ime = ime;
-    }
+	public void setName(String name) {
+		this.name = name;
+	}
 
-    public String getPrezime() {
-        return prezime;
-    }
+	public String getSurname() {
+		return surname;
+	}
 
-    public void setPrezime(String prezime) {
-        this.prezime = prezime;
-    }
+	public void setSurname(String surname) {
+		this.surname = surname;
+	}
+
 }

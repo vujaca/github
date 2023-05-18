@@ -9,14 +9,23 @@ import RestaurantsPage, {
 } from "./pages/Restaurants";
 import MealDetailPage, { loader as mealDetailLoader } from "./pages/MealDetail";
 import RestaurantDetailPage, {loader as restaurantDetailLoader} from "./pages/RestaurantDetail";
+import { tokenLoader } from "./services/auth";
+import AuthenticationPage, { action as authAction } from "./pages/Authentication";
 
 export const router = createBrowserRouter([
   {
     path: "/",
     element: <RootLayout />,
     errorElement: <ErrorPage />,
+    id: 'root',
+    loader: tokenLoader,
     children: [
       { index: true, element: <HomePage /> },
+      {
+        path: "auth",
+        element: <AuthenticationPage />,
+        action: authAction
+      },
       {
         path: "meals",
         children: [
@@ -24,8 +33,6 @@ export const router = createBrowserRouter([
             index: true,
             element: <AvailableMeals />,
             loader: mealsLoader,
-            // element: <MealsPage />,
-            // loader: mealsLoader
           },
           {
             path: ":mealId",

@@ -3,9 +3,11 @@ import React from "react"
 import mealsImage from '../../assets/meals.jpg'
 import classes from './Header.module.css'
 import HeaderCartButton from "./HeaderCartButton"
-import { NavLink } from "react-router-dom"
+import { NavLink, useRouteLoaderData } from "react-router-dom"
+import { logout } from "../../services/auth"
 
 const Header = props => {
+  const jwt = useRouteLoaderData('root')
     return (
        <React.Fragment>
         <header className={classes.header}>
@@ -46,6 +48,16 @@ const Header = props => {
         </ul>
       </nav>
             <HeaderCartButton onClick={props.onShowCart} />
+            { !jwt? <li className={classes.list}>
+                <NavLink
+              to="/auth?mode=login"
+              className={({ isActive }) =>
+                isActive ? classes.active : undefined
+              }
+            >
+              Login
+            </NavLink>
+            </li>:<button className={classes.button} onClick={logout}>Logout</button>}
         </header>
         <div className={classes['main-image']}>
             <img src={mealsImage} alt="A table full of delicious food!"/>
@@ -53,5 +65,5 @@ const Header = props => {
 
        </React.Fragment>
     )
-}
+            }
 export default Header

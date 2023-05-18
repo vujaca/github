@@ -11,19 +11,19 @@ public class User {
     private Long id;
 
     @Column(unique = true, nullable = false)
-    private String korisnickoIme;
+    private String username;
 
     @Column( unique = true, nullable = false)
     private String eMail;
 
     @Column
-    private String ime;
+    private String name;
 
     @Column
-    private String prezime;
+    private String surname;
 
     @Column(nullable = false)
-    private String lozinka;
+    private String password;
 
     @Enumerated(EnumType.STRING)
     private UserRole uloga;
@@ -32,16 +32,20 @@ public class User {
 
     }
 
-    public User(String korisnickoIme, String eMail, String ime, String prezime, String lozinka, UserRole uloga) {
-        this.korisnickoIme = korisnickoIme;
-        this.eMail = eMail;
-        this.ime = ime;
-        this.prezime = prezime;
-        this.lozinka = lozinka;
-        this.uloga = uloga;
-    }
+    public User(Long id, String username, String eMail, String name, String surname, String password, UserRole uloga) {
+		super();
+		this.id = id;
+		this.username = username;
+		this.eMail = eMail;
+		this.name = name;
+		this.surname = surname;
+		this.password = password;
+		this.uloga = uloga;
+	}
 
-    public Long getId() {
+
+
+	public Long getId() {
         return id;
     }
 
@@ -49,47 +53,47 @@ public class User {
         this.id = id;
     }
 
-    public String getKorisnickoIme() {
-        return korisnickoIme;
-    }
+    public String getUsername() {
+		return username;
+	}
 
-    public void setKorisnickoIme(String korisnickoIme) {
-        this.korisnickoIme = korisnickoIme;
-    }
+	public void setUsername(String username) {
+		this.username = username;
+	}
 
-    public String geteMail() {
-        return eMail;
-    }
+	public String geteMail() {
+		return eMail;
+	}
 
-    public void seteMail(String eMail) {
-        this.eMail = eMail;
-    }
+	public void seteMail(String eMail) {
+		this.eMail = eMail;
+	}
 
-    public String getIme() {
-        return ime;
-    }
+	public String getName() {
+		return name;
+	}
 
-    public void setIme(String ime) {
-        this.ime = ime;
-    }
+	public void setName(String name) {
+		this.name = name;
+	}
 
-    public String getPrezime() {
-        return prezime;
-    }
+	public String getSurname() {
+		return surname;
+	}
 
-    public void setPrezime(String prezime) {
-        this.prezime = prezime;
-    }
+	public void setSurname(String surname) {
+		this.surname = surname;
+	}
 
-    public String getLozinka() {
-        return lozinka;
-    }
+	public String getPassword() {
+		return password;
+	}
 
-    public void setLozinka(String lozinka) {
-        this.lozinka = lozinka;
-    }
+	public void setPassword(String password) {
+		this.password = password;
+	}
 
-    public UserRole getUloga() {
+	public UserRole getUloga() {
         return uloga;
     }
 
@@ -116,7 +120,7 @@ public class User {
 
     @Override
     public String toString() {
-        return "Korisnik [id=" + id + ", ime=" + ime + ", prezime=" + prezime + "]";
+        return "Korisnik [id=" + id + ", ime=" + name + ", prezime=" + surname + "]";
     }
 
 }
